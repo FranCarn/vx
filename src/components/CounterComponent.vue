@@ -1,6 +1,6 @@
 <template>
   <h1>Counter - Vuex</h1>
-  <h2>Direct Access: {{ $store.state.count }}</h2>
+  <h2>Direct Access: {{ $store.state.counter.count }}</h2>
   <h2>Computed: {{ countComputed }}</h2>
   <button @click="increment" :disabled="isLoading">Increment +1</button>
   <button @click="incrementBy(5)" :disabled="isLoading">Increment +5</button>
@@ -12,7 +12,7 @@
   <h2>MapState: {{ counter }}</h2>
   <h2>lastMutation: {{ lastMutation }}</h2>
   <h2>lastMutation: {{ lastMutacion }}</h2>
-  <h2>Direct Getter {{ $store.getters.squareCount }}</h2>
+  <h2>Direct Getter {{ $store.getters["counter/squareCount"] }}</h2>
 </template>
 
 <script>
@@ -23,29 +23,29 @@ export default {
 
   computed: {
     countComputed() {
-      return this.$store.state.count;
+      return this.$store.state.counter.count;
     },
-    ...mapState(["count", "lastMutation", "isLoading"]),
+    ...mapState("counter", ["count", "lastMutation", "isLoading"]),
     // renamed
     ...mapState({
-      counter: (state) => state.count,
-      lastMutacion: (state) => state.lastMutation,
+      counter: (state) => state.counter.count,
+      lastMutacion: (state) => state.counter.lastMutation,
     }),
   },
   methods: {
     increment() {
-      this.$store.commit("increment");
+      this.$store.commit("counter/increment");
     },
     decrement() {
-      this.$store.commit("decrement");
+      this.$store.commit("counter/decrement");
     },
     incrementBy(value) {
-      this.$store.commit("incrementBy", value);
+      this.$store.commit("counter/incrementBy", value);
       // this.randomInt()
     },
-    ...mapActions(["incrementRandomInt"]),
+    ...mapActions("counter", ["incrementRandomInt"]),
     // renamed
-    ...mapActions({
+    ...mapActions("counter", {
       randomInt: "incrementRandomInt",
     }),
   },
