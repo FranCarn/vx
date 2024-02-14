@@ -8,7 +8,19 @@ const store = createStore({
 
   mutations: {
     increment(state) {
+      state.lastMutation = "Increment";
       state.count++;
+    },
+    incrementBy(state, value) {
+      state.lastMutation = "Increment By";
+      state.count += value;
+    },
+    decrement(state) {
+      if (state.count) {
+        state.lastMutation = "Decrement";
+        state.count--;
+      }
+      return;
     },
   },
 });
