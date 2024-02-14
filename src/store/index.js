@@ -41,6 +41,11 @@ const store = createStore({
       }
     },
   },
+  getters: {
+    squareCount(state) {
+      return state.count * state.count;
+    },
+  },
 });
 
 export default store;
